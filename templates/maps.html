@@ -1,0 +1,228 @@
+<html>
+<head>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+<script>
+function initialize() {
+    var goo         = google.maps,
+        map         = new goo.Map(document.getElementById('map-canvas'),
+                                  {
+                                    center  : new goo.LatLng(-40.6698, -73.9438),
+                                    zoom    : 2
+                                  }
+                                 ),
+        App         = { map               : map,
+                        bounds            : new goo.LatLngBounds(),
+                        directionsService : new goo.DirectionsService(),
+                        directionsDisplay1: new goo.DirectionsRenderer({
+                                              map             : map,
+                                              preserveViewport: true,
+                                              suppressMarkers : true,
+                                              polylineOptions: {strokeWeight:5, strokeColor:'#0000ff'},
+                                              panel           : document.getElementById('panel').appendChild(document.createElement('li'))}),
+                        directionsDisplay2: new goo.DirectionsRenderer({
+                                              map             : map,
+                                              preserveViewport: true,
+                                              suppressMarkers : true,
+                                              polylineOptions: {strokeWeight:5, strokeColor:'#0000ff'},
+                                              panel           : document.getElementById('panel').appendChild(document.createElement('li'))}),
+                        directionsDisplay3: new goo.DirectionsRenderer({
+                                              map             : map,
+                                              preserveViewport: true,
+                                              suppressMarkers : true,
+                                              polylineOptions: {strokeWeight:5, strokeColor:'#0000ff'},
+                                              panel           : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay4: new goo.DirectionsRenderer({
+ map    : map,
+ preserveViewport : true,
+                                              suppressMarkers  : false,
+     polylineOptions: {strokeWeight:5, strokeColor:'green'},
+ panel    : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay5: new goo.DirectionsRenderer({
+ map    : map,
+ preserveViewport : true,
+                                              suppressMarkers  : true,
+     polylineOptions: {strokeWeight:5, strokeColor: 'red'},
+ panel    : document.getElementById('panel').appendChild(document.createElement('li'))})
+/*directionsDisplay6: new goo.DirectionsRenderer({
+ map    : map,
+ preserveViewport : true,
+                                              suppressMarkers  : true,
+     polylineOptions  : {strokeColor:'red'},
+ panel    : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay7: new goo.DirectionsRenderer({
+ map    : map,
+ preserveViewport : true,
+                                              suppressMarkers  : true,
+     polylineOptions  : {strokeColor:'blue'},
+ panel    : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay8: new goo.DirectionsRenderer({
+ map    : map,
+ preserveViewport : true,
+                                              suppressMarkers  : true,
+     polylineOptions  : {strokeColor:'blue'},
+ panel    : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay9: new goo.DirectionsRenderer({
+ map    : map,
+ preserveViewport : true,
+                                              suppressMarkers  : true,
+     polylineOptions  : {strokeColor:'red'},
+ panel    : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay10: new goo.DirectionsRenderer({
+ map : map,
+ preserveViewport  : true,
+ suppressMarkers   : true,
+ polylineOptions   : {strokeColor:'red'},
+ panel : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay11: new goo.DirectionsRenderer({
+ map : map,
+ preserveViewport  : true,
+ suppressMarkers   : true,
+ polylineOptions   : {strokeColor:'red'},
+ panel : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay12: new goo.DirectionsRenderer({
+ map : map,
+ preserveViewport  : true,
+ suppressMarkers   : true,
+ polylineOptions   : {strokeColor:'red'},
+ panel : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay13: new goo.DirectionsRenderer({
+ map : map,
+ preserveViewport  : true,
+ suppressMarkers   : true,
+ polylineOptions   : {strokeColor:'red'},
+ panel : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay14: new goo.DirectionsRenderer({
+ map : map,
+ preserveViewport : true,
+ suppressMarkers   : true,
+ polylineOptions   : {strokeColor:'red'},
+ panel : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay15: new goo.DirectionsRenderer({
+ map : map,
+ preserveViewport  : true,
+ suppressMarkers   : true,
+ polylineOptions   : {strokeColor:'red'},
+ panel      : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay16: new goo.DirectionsRenderer({
+map : map,
+preserveViewport   : true,
+suppressMarkers    : true,
+polylineOptions    : {strokeColor:'red'},
+panel : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay17: new goo.DirectionsRenderer({
+map : map,
+preserveViewport    : true,
+suppressMarkers     : true,
+polylineOptions     : {strokeColor:'red'},
+panel : document.getElementById('panel').appendChild(document.createElement('li'))}),
+directionsDisplay18: new goo.DirectionsRenderer({
+map : map,
+preserveViewport    : true,
+suppressMarkers     : true,
+polylineOptions     : {strokeColor:'red'},
+panel : document.getElementById('panel').appendChild(document.createElement('li'))
+})*/
+            },
+         routeOne   = {  origin     :  '{{org}}',
+                        destination :  '{{rlist1}}', //Pacific Highway - coast
+                        travelMode  :  goo.TravelMode.WALKING},
+         routeTwo  = {  origin      :  '{{rlist1}}',
+                        destination :  '{{rlist2}}',
+                        travelMode  :  goo.TravelMode.BICYCLING};
+         routeThree  = {  origin      :  '{{rlist2}}',
+                        destination :  '{{dest}}',
+                        travelMode  :  goo.TravelMode.WALKING};
+         routeFour  = {  origin      :  '{{org}}',
+                        destination :  '{{dest}}',
+                        travelMode  :  goo.TravelMode.TRANSIT};
+        routeFive  = {  origin      :  '{{org}}',
+                        destination :  '{{dest}}',
+                        travelMode  :  goo.TravelMode.DRIVING};
+        /* routeSix  = {  origin      :  '2800 Cropsey Avenue Brooklyn New York',
+                        destination :  'Boerum Pl & Schermerhorn St Brooklyn NY 11201',
+                        travelMode  :  goo.TravelMode.DRIVING};
+         routeSeven  = {  origin      :  '2800 Cropsey Avenue Brooklyn New York',
+                        destination :  'Boerum Pl & Schermerhorn St Brooklyn NY 11201',
+                        travelMode  :  goo.TravelMode.DRIVING};
+         routeEight  = {  origin      :  '2800 Cropsey Avenue Brooklyn New York',
+                        destination :  'Boerum Pl & Schermerhorn St Brooklyn NY 11201',
+                        travelMode  :  goo.TravelMode.DRIVING};
+*/
+
+      App.directionsService.route(routeOne, function(result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          App.directionsDisplay1.setDirections(result);
+          App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+        }
+      });
+
+      App.directionsService.route(routeTwo, function(result, status) {
+      //  if (status == google.maps.DirectionsStatus.OK) {
+          App.directionsDisplay2.setDirections(result);
+          App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+        //}
+      });
+      App.directionsService.route(routeThree, function(result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          App.directionsDisplay3.setDirections(result);
+          App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+        }
+      });
+      App.directionsService.route(routeFour, function(result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          App.directionsDisplay4.setDirections(result);
+          App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+        }
+      });
+      App.directionsService.route(routeFive, function(result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          App.directionsDisplay5.setDirections(result);
+          App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+        }
+      });/*
+      App.directionsService.route(routeSix, function(result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          App.directionsDisplay2.setDirections(result);
+          App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+        }
+      });
+      App.directionsService.route(routeSeven, function(result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          App.directionsDisplay2.setDirections(result);
+          App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+        }
+      });
+      App.directionsService.route(routeEight, function(result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          App.directionsDisplay2.setDirections(result);
+          App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+        }
+      });*/
+
+
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #panel li:before{
+
+        padding: 3px;
+        display:block;
+        color:#fff;
+        font-weight:bold;
+      }
+
+</style>
+</head>
+<body>
+<div id="map-canvas"></div>
+<ol id="panel"></ol>
+</body>
+</html>

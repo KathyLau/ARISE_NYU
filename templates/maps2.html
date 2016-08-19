@@ -1,0 +1,101 @@
+    <script type="text/javascript">
+      var myCurrentPosition = new google.maps.LatLng(40.67805433491974,-73.91063400075645); //subject to change
+
+      function init() {
+        updateMyCurrentPosition( initMap );
+      }
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          mapTypeId: google.maps.MapTypeId.ROAD,
+          zoom: 12,
+          center: myCurrentPosition,
+          disableDefaultUI: true,
+          disableDoubleClickZoom: true,
+          scrollwheel: true,
+          draggable: true,
+        });
+
+        var userMarker = new google.maps.Marker({
+          position: myCurrentPosition,
+          map: map,
+          title: 'Your Location'
+        });
+
+    	  // Multiple Markers
+      /*  var markers = [
+            [40.635536, -73.950193, "A"],
+            [40.635336, -73.949993, "B"],
+            [40.63536, -73.95093, "C"]
+        ];*/
+        var imageC = {
+          url: 'http://pics.who.pho.to/img/thumbs/citibikenyc.com_favicon.jpg',
+          // This marker is 20 pixels wide by 32 pixels high.
+      size: new google.maps.Size(10, 12),
+      // The origin for this image is (0, 0).
+      origin: new google.maps.Point(0, 0),
+}
+        var imageS= {
+          url:
+        'http://upload.wikimedia.org/wikipedia/commons/thumb/2/23/BSicon_BAHN.svg/24px-BSicon_BAHN.svg.png',
+        // This marker is 20 pixels wide by 32 pixels high.
+      size: new google.maps.Size(10, 12),
+      // The origin for this image is (0, 0).
+      origin: new google.maps.Point(0, 0),
+      }
+      var markers = {{coords}}
+        var markers2 = {{coords2}}
+
+       // Loop through our array of markers & place each one on the map
+        for( i = 0; i < markers.length; i++ ) {
+            var position = new google.maps.LatLng(markers[i][0], markers[i][1]);
+            //bounds.extend(position);
+            var marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                icon: imageS,
+            });
+          // Automatically center the map fitting all markers on the screen
+            //map.fitBounds(bounds);
+        }
+        for( i = 0; i < markers2.length; i++ ) {
+            var position = new google.maps.LatLng(markers2[i][0], markers2[i][1]);
+            //bounds.extend(position);
+            var marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                icon: imageC,
+            });
+          // Automatically center the map fitting all markers on the screen
+            //map.fitBounds(bounds);
+        }
+
+        setInterval(
+          function() {
+            updateMyCurrentPosition( function(){updateMarker(userMarker);} );
+          }, 5000);
+      } //end initMap
+
+
+      function updateMarker(marker) {
+        marker.setPosition( myCurrentPosition );
+      }
+
+
+      function updateMyCurrentPosition(callback) {
+        navigator.geolocation.getCurrentPosition( function(position){
+          myCurrentPosition = new google.maps.LatLng(40.67805433491974,-73.91063400075645);
+          console.log("lat: " + myCurrentPosition.lat());
+          console.log("lng: " + myCurrentPosition.lng())
+          //debug: steadily increase lat/lng to see if map updates
+          //myCurrentPosition = new google.maps.LatLng(myCurrentPosition.lat()+.0001, myCurrentPosition.lng()+.0001);
+
+          //navigator.geolocation.watchPosition(showPosition);
+          //navigator.geolocation.watchPosition(showPosition2);
+
+          printCoords = document.getElementById("coords");
+          printCoords.innerHTML = "<center>Latitude: " + myCurrentPosition.lat() + "<br>Longitude: " + myCurrentPosition.lng() + "</center>"
+          callback();
+        } );
+
+ */
